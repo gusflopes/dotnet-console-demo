@@ -1,16 +1,23 @@
-﻿namespace ConsoleApp;
+﻿using System.Reflection;
+
+namespace ConsoleApp;
 
 class Program
 {
     static void Main(string[] args)
     {
+        var opcoes = Assembly.GetExecutingAssembly().GetTypes()
+            .Where(t => t.GetInterfaces().Contains(typeof(IOpcao)) && !t.IsInterface && t.IsAbstract)
+            .Select(t => Activator.CreateInstance(t) as IOpcao)
+            .ToList();
+        
         while (true)
         {
             Console.Clear();
             
             Console.WriteLine("Digite a opção pretendida:");
 
-            foreach (var opcao in Opcao.Opcoes)
+            foreach (var opcao in opcoes)
             {
                 Console.WriteLine($"Digite {opcao.Id} para a {opcao.Name}");
             }
@@ -23,12 +30,11 @@ class Program
                     return; // Sai do Programa
                 }
 
-                var opcaoSelecionada = Opcao.Opcoes.FirstOrDefault(o => o.Id == escolha);
+                var opcaoSelecionada = opcoes.FirstOrDefault(o => o.Id == escolha);
                 if (opcaoSelecionada != null)
                 {
-                    // Movido para a função InvokeHandler na classe Opcao
-                    // Console.WriteLine($"\n{opcaoSelecionada.Response}");
-                    Opcao.InvokeHandler(opcaoSelecionada.Id);
+                    // Opcao.InvokeHandler(opcaoSelecionada.Id);
+                    opcaoSelecionada.InvokeHandler(escolha);
                 }
                 else
                 {
