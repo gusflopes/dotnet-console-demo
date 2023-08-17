@@ -1,31 +1,16 @@
 ﻿namespace ConsoleApp;
 
-public class Opcao
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Response { get; set; }
-}
-
 class Program
 {
     static void Main(string[] args)
     {
-        List<Opcao> opcoes = new List<Opcao>
-        {
-            new Opcao { Id = 1, Name = "Opção 1", Response = "Escolheu a Opção 1" },
-            new Opcao { Id = 2, Name = "Opção 2", Response = "Escolheu a Opção 2" },
-            new Opcao { Id = 3, Name = "Opção 3", Response = "Escolheu a Opção 3" },
-            new Opcao { Id = 4, Name = "Opção 4", Response = "Escolheu a Opção 4" },
-        };
-
         while (true)
         {
             Console.Clear();
             
             Console.WriteLine("Digite a opção pretendida:");
 
-            foreach (var opcao in opcoes)
+            foreach (var opcao in Opcao.Opcoes)
             {
                 Console.WriteLine($"Digite {opcao.Id} para a {opcao.Name}");
             }
@@ -38,10 +23,11 @@ class Program
                     return; // Sai do Programa
                 }
 
-                var opcaoSelecionada = opcoes.FirstOrDefault(o => o.Id == escolha);
+                var opcaoSelecionada = Opcao.Opcoes.FirstOrDefault(o => o.Id == escolha);
                 if (opcaoSelecionada != null)
                 {
                     Console.WriteLine($"\n{opcaoSelecionada.Response}");
+                    Opcao.InvokeHandler(opcaoSelecionada.Id);
                 }
                 else
                 {
