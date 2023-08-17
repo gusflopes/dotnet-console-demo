@@ -1,44 +1,56 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System;
-namespace ConsoleApp;
+﻿namespace ConsoleApp;
 
 class Program
 {
     static void Main(string[] args)
     {
+        Dictionary<int, string> opcoes = new Dictionary<int, string>
         {
+            { 1, "Opção 1" },
+            { 2, "Opção 2" },
+            { 3, "Opção 3" }
+        };
+
+        Dictionary<int, string> respostas = new Dictionary<int, string>
+        {
+            { 1, "Escolheu a Opção 1" },
+            { 2, "Escolheu a Opção 2" },
+            { 3, "Escolheu a Opção 3" }
+        };
+        
+        while (true)
+        {
+            Console.Clear();
             
-            // Exibe as opções para o usuário
             Console.WriteLine("Digite a opção pretendida:");
-            Console.WriteLine("1 = Opcao 1");
-            Console.WriteLine("2 = Opcao 2");
-            Console.WriteLine("3 = Opcao 3");
-            Console.WriteLine("0 = Sair");
 
-            string input = Console.ReadLine();
-
-            switch (input)
+            foreach (var opcao in opcoes)
             {
-                case "1":
-                    Console.WriteLine("Escolheu opcao 1");
-                    break;
-                case "2":
-                    Console.WriteLine("Escolheu opcao 2");
-                    break;
-                case "3":
-                    Console.WriteLine("Escolheu opcao 3");
-                    break;
-                case "4":
-                    Console.WriteLine("Escolheu opcao 4");
-                    break;
-                case "0":
-                    return; // Exit
-                default:
-                Console.WriteLine("Opção Inválida");
-                    break;
+                Console.WriteLine($"Digite {opcao.Key} para a {opcao.Value}");
             }
-            Console.WriteLine(); // Adicionar linha
+            Console.WriteLine("Digite 0 para sair...");
+            
+            if (int.TryParse(Console.ReadLine(), out int escolha))
+            {
+                if (escolha == 0)
+                {
+                    return; // Sai do Programa
+                }
+                else if (respostas.ContainsKey(escolha))
+                {
+                    Console.WriteLine($"\n{respostas[escolha]}");
+                }
+                else
+                {
+                    Console.WriteLine("\nOpção inválida.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Por favor, digite a opção selecionada.");
+            }
+            Console.WriteLine("\nPressione qualquer tecla para continuar...");
+            Console.ReadKey();
         }
     }
 }
