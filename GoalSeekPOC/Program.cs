@@ -26,7 +26,8 @@ class Program
                 var opcaoSelecionada = Opcao.Opcoes.FirstOrDefault(o => o.Id == escolha);
                 if (opcaoSelecionada != null)
                 {
-                    Console.WriteLine($"\n{opcaoSelecionada.Response}");
+                    // Movido para a função InvokeHandler na classe Opcao
+                    // Console.WriteLine($"\n{opcaoSelecionada.Response}");
                     Opcao.InvokeHandler(opcaoSelecionada.Id);
                 }
                 else
