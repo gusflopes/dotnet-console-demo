@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+
 
 namespace ConsoleApp;
 
@@ -7,7 +10,7 @@ class Program
     static void Main(string[] args)
     {
         var opcoes = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(t => t.GetInterfaces().Contains(typeof(IOpcao)) && !t.IsInterface && t.IsAbstract)
+            .Where(t => t.GetInterfaces().Contains(typeof(IOpcao)) && !t.IsInterface ) // && t.IsAbstract
             .Select(t => Activator.CreateInstance(t) as IOpcao)
             .ToList();
         
