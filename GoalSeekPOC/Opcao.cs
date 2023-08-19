@@ -1,4 +1,4 @@
-namespace ConsoleApp;
+namespace GoalSeekPOC;
 
 public interface IOpcao
 {

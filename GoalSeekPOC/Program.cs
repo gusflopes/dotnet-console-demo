@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
-
-namespace ConsoleApp;
+namespace GoalSeekPOC;
 
 class Program
 {
@@ -20,9 +17,12 @@ class Program
             
             Console.WriteLine("Digite a opção pretendida:");
 
-            foreach (var opcao in opcoes)
+            foreach (IOpcao? opcao in opcoes)
             {
-                Console.WriteLine($"Digite {opcao.Id} para a {opcao.Name}");
+                if (opcao != null)
+                {
+                    Console.WriteLine($"Digite {opcao.Id} para a {opcao.Name}");
+                }
             }
             Console.WriteLine("Digite 0 para sair...");
             
@@ -33,7 +33,7 @@ class Program
                     return; // Sai do Programa
                 }
 
-                var opcaoSelecionada = opcoes.FirstOrDefault(o => o.Id == escolha);
+                IOpcao? opcaoSelecionada = opcoes.FirstOrDefault(o => o.Id == escolha);
                 if (opcaoSelecionada != null)
                 {
                     // Opcao.InvokeHandler(opcaoSelecionada.Id);
